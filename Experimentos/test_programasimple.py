@@ -8,6 +8,10 @@ def test_sumarA ():
     resultado = ProgramaSimple.sumar(5, 9)
     assert resultado == 14
 
+def test_sumarB ():
+    resultado = ProgramaSimple.sumar(7, 9)
+    assert resultado == 16
+
 def test_restarA ():
     resultado = ProgramaSimple.restar(10, 2)
     assert resultado == 8
