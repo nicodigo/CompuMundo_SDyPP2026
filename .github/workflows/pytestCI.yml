@@ -1,3 +1,4 @@
+# DEO GLORIA
 # This workflow will install Python dependencies, run tests and lint with a various versions of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
@@ -38,7 +39,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest
-        python -m pip install -r Experimentos/Mateo/requisitos.txt
+        #python -m pip install -r Experimentos/Mateo/requisitos.txt
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
