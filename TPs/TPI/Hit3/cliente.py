@@ -1,5 +1,6 @@
 import sys
 from TPs.TPI.common.netutils import *
+import time
 
 
 def main():
@@ -21,9 +22,13 @@ def main():
         except Exception:
             print(f"{host}:{puerto} no responde")
             print("Verifique su conexion y si el servidor esta corriendo")
-            sys.exit(1)
+            input("Presione <Enter> cuando quiera intentar reconectar")
+            sock_cliente.close()
+            continue
 
         enviar_mensaje(sock_cliente, "Hola mundo desde A")
+        print("Enviando mensaje...")
+        time.sleep(2)
 
         respuesta = recibir_mensaje(sock_cliente)
         print(f"Respuesta del servidor: {respuesta}")
