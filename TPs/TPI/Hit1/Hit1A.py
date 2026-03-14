@@ -72,7 +72,7 @@ def main():
 
     mensaje = sys.argv[2].strip()
     if not mensaje:
-        ("Error: El mensaje no puede estar vacio")
+        print("Error: El mensaje no puede estar vacio")
         sys.exit(1)
 
     enviar_mensaje(puerto, mensaje)
