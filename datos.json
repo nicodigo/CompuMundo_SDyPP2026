@@ -1,0 +1,13 @@
+{
+    "empresa": "Tecnolog\u00eda XYZ",
+    "empleados": [
+        {
+            "id": 1,
+            "nombre": "Carlos"
+        },
+        {
+            "id": 2,
+            "nombre": "Laura"
+        }
+    ]
+}
