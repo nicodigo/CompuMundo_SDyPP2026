@@ -1,5 +1,3 @@
-#DEO GLORIA
-
 from setuptools import setup, find_packages
 
 
@@ -12,3 +10,5 @@ setup(
     python_requires=">=3.10"
     
 )
+
+#DEO GLORIA
