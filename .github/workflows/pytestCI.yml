@@ -8,11 +8,11 @@ on:
   push:
     #branches: [ "main", "LabMateo" ]
     branches:
-    - LabMateo
+    - main
   pull_request:
     #branches: [ "main", "LabMateo" ]
     branches:
-    - LabMateo
+    - main
 
 permissions:
   contents: read
