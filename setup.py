@@ -8,7 +8,7 @@ setup(
 
     name="CI/CD_Test",
     version="0.1",
-    author="MouseKey",
+    author="Titanium, MouseKey, Nazra",
     packages=find_packages(),
     python_requires=">=3.10"
     
