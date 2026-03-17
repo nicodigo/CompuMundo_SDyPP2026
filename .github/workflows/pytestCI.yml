@@ -8,11 +8,15 @@ on:
   push:
     #branches: [ "main", "LabMateo" ]
     branches:
-    - LabMateo
+    - main
   pull_request:
     #branches: [ "main", "LabMateo" ]
     branches:
-    - LabMateo
+    - main
+
+defaults:
+  run:
+    working-directory: ./dist
 
 permissions:
   contents: read

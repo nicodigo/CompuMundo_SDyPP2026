@@ -13,7 +13,6 @@ def obtener_puerto():
     return puerto
 
 def decidir_reconexion(client_socket):
-    
     client_socket.close()
 
     conectar = input("La conexion termino ¿Quiere intertar reconectarse? (s/n): ")
