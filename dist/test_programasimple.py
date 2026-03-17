@@ -2,28 +2,34 @@
 
 #Pruebas unitarias para ProgramaSimple
 
-import ProgramaSimple
+import programaSimple
 
 def test_sumarA ():
-    resultado = ProgramaSimple.sumar(5, 9)
+    resultado = programaSimple.sumar(5, 9)
     assert resultado == 14
+    print("assert correcto")
 
 def test_sumarB ():
-    resultado = ProgramaSimple.sumar(7, 9)
+    resultado = programaSimple.sumar(7, 9)
     assert resultado == 16
+    print("assert correcto")
 
 def test_restarA ():
-    resultado = ProgramaSimple.restar(10, 2)
+    resultado = programaSimple.restar(10, 2)
     assert resultado == 8
+    print("assert correcto")
 
 def test_cuadradoA ():
-    resultado = ProgramaSimple.cuadrado(9)
+    resultado = programaSimple.cuadrado(9)
     assert resultado == 81
+    print("assert correcto")
 
 def test_multiplicarA ():
-    resultado = ProgramaSimple.multiplicar(10, 10)
+    resultado = programaSimple.multiplicar(10, 10)
     assert resultado == 100
+    print("assert correcto")
 
 def test_dividirA ():
-    resultado = ProgramaSimple.dividir(1000, 2)
+    resultado = programaSimple.dividir(1000, 2)
     assert resultado == 500
+    print("assert correcto")
