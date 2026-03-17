@@ -30,6 +30,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Debug Path
+        run: |
+          pwd
+          ls -R
+
       - name: Build release distributions
         run: |
           # NOTE: put your own distribution build steps here.
