@@ -1,5 +1,7 @@
+# DEO GLORIA
+
 import sys
-from TPs.TPI.common.netutils import *
+from netutils import parsear_direccion, crear_socket_cliente, enviar_mensaje, recibir_mensaje
 import time
 
 
@@ -18,7 +20,8 @@ def main():
 
     while True:
         sock_cliente = crear_socket_cliente()
-        try: sock_cliente.connect((host, puerto))
+        try:
+            sock_cliente.connect((host, puerto))
         except Exception:
             print(f"{host}:{puerto} no responde")
             print("Verifique su conexion y si el servidor esta corriendo")

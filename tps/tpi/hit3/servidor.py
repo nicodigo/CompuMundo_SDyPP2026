@@ -1,5 +1,7 @@
+# DEO GLORIA
+
 import sys
-from TPs.TPI.common.netutils import *
+from netutils import parsear_direccion, crear_socket_servidor, recibir_mensaje, enviar_mensaje
 
 
 def main():

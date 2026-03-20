@@ -1,12 +1,13 @@
 import sys
-from netutils import *
+from netutils import crear_socket_cliente, enviar_mensaje, recibir_mensaje
+from netutils import parsear_direccion, crear_socket_servidor
 import threading
 import socket
 
 
 def servicio_cliente(host_remoto: str, puerto_remoto: int) -> None:
     while True:
-        s_cliente= crear_socket_cliente()
+        s_cliente = crear_socket_cliente()
         try:
             s_cliente.connect((host_remoto, puerto_remoto))
         except Exception:
@@ -33,16 +34,20 @@ def servicio_cliente(host_remoto: str, puerto_remoto: int) -> None:
                     return
                 if msj:
                     enviar_mensaje(s_cliente, msj)
-                else: continue
-        except: print("Fallo al enviar el mensaje, intentando reconexion...")
-        finally: s_cliente.close()
+                else:
+                    continue
+        except Exception:
+            print("Fallo al enviar el mensaje, intentando reconexion...")
+        finally:
+            s_cliente.close()
 
 
-def escuchar(c: socket.socket, a: Tuple[str, int]) -> None:
+def escuchar(c: socket.socket, a: tuple[str, int]) -> None:
     try:
         while True:
             msj = recibir_mensaje(c)
-            if not msj: break
+            if not msj:
+                break
             print(f"({a[0]}:{a[1]}): {msj}")
     finally:
         c.close()
@@ -59,8 +64,6 @@ def servicio_servidor(s_servidor: socket.socket) -> None:
                 )
         escuchador.start()
         escuchador.join()
-
-
 
 
 def main():
@@ -86,7 +89,7 @@ def main():
             daemon=True,
             )
     hilo_servidor.start()
-    
+
     hilo_cliente = threading.Thread(
             target=servicio_cliente,
             args=(host_remoto, puerto_remoto),

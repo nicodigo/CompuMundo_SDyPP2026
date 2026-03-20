@@ -1,9 +1,4 @@
-#DEO GLORIA
-
-'''La letra b delante de un string en Python (b"texto") define un literal de bytes (bytes literal), 
-creando un objeto bytes en lugar de una cadena Unicode (str) normal. 
-Esto se utiliza para manipular datos binarios de bajo nivel (valores del 0 al 255), como archivos binarios o redes.'''
-
+# DEO GLORIA
 
 import socket
 import sys
@@ -30,7 +25,6 @@ def puerto_valido(puerto: int) -> bool:
         return False
 
     return True
-
 
 
 def enviar_mensaje(puerto: int, mensaje: str):

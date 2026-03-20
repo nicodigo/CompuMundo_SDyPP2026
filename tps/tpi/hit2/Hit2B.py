@@ -1,6 +1,7 @@
-#DEO GLORIA
+# DEO GLORIA
 
 import socket
+
 
 def obtener_puerto():
 
@@ -11,6 +12,7 @@ def obtener_puerto():
         puerto = int(input("Ingrese el numero de puerto a utilizar (2000 < puerto < 65000): "))
 
     return puerto
+
 
 def proceso_servidor(puerto):
 

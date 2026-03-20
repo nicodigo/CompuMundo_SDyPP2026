@@ -1,4 +1,4 @@
-#DEO GLORIA
+# DEO GLORIA
 
 import socket
 import sys
@@ -48,8 +48,6 @@ def proceso_servidor(puerto):
         connection.close()
 
 
-
-
 def main():
     argc = len(sys.argv)
     if (argc != 2):
@@ -68,5 +66,6 @@ def main():
         sys.exit(1)
 
     proceso_servidor(puerto)
+
 
 main()

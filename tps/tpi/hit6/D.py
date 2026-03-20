@@ -1,12 +1,16 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import time
+import sys
+
 
 nodos = []
 tiempo_inicial = time.time()
 
+
 # Controlador para las solicitudes HTTP
 class Controlador(BaseHTTPRequestHandler):
+
 
     def do_GET(self):
         if self.path == "/health":
@@ -21,6 +25,7 @@ class Controlador(BaseHTTPRequestHandler):
             self.end_headers()
 
             self.wfile.write(json.dumps(respuesta).encode())
+
 
     def do_POST(self):
         if self.path == "/registro":
@@ -42,6 +47,26 @@ class Controlador(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(respuesta).encode())
 
 
-server = HTTPServer(("0.0.0.0", 8000), Controlador)
-print("Nodo D escuchando en puerto 8000")
-server.serve_forever()
+
+def main():
+    if (len(sys.argv) != 2):
+        print("Error: Formato incorrecto")
+        print("Se espera: D.py <puerto para D>")
+        sys.exit(1)
+
+    try:
+        d_port = int(sys.argv[1])
+    except ValueError:
+        print("Error: asegurese de que los puertos sean numeros enteros validos")
+        sys.exit(1)
+
+    server = HTTPServer(("0.0.0.0", d_port), Controlador)
+    print("Nodo D escuchando en puerto " + d_port)
+    server.serve_forever()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        sys.exit(2)
