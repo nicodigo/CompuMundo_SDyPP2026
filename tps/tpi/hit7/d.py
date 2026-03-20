@@ -51,9 +51,7 @@ class Manejador(BaseHTTPRequestHandler):
             nodo: Tuple[str, int] = (ip, puerto)
 
             if nodo not in PROXIMOS:
-                lock = threading.Lock()
-                with lock:
-                    PROXIMOS.append(nodo)
+                PROXIMOS.append(nodo)
 
             self._set_headers(200)
             respuesta: Dict = {
@@ -103,9 +101,7 @@ def run(server_class: type[HTTPServer] = HTTPServer,
 
 
 def manejar_ventana():
-    print("aaaaati")
     global ACTIVOS, PROXIMOS
-    lock = threading.Lock()
 
     while True:
         print("Cambio de ventana")
@@ -114,10 +110,9 @@ def manejar_ventana():
                 "proximos": PROXIMOS,
                 }
         registrar_evento("cambio-ventana", datos_evento)
-        with lock:
-            ACTIVOS = PROXIMOS.copy()
-            PROXIMOS.clear()
-        time.sleep(30)
+        ACTIVOS = PROXIMOS.copy()
+        PROXIMOS.clear()
+        time.sleep(60)
 
 
 def registrar_evento(evento: str, datos: Dict[str, Any]) -> None:
