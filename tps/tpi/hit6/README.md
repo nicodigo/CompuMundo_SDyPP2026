@@ -81,12 +81,12 @@ Cada nodo C:
 ### Paso 1: Iniciar el nodo D (registro)
 
 ```bash
-python D.py
+python D.py nro_puerto
 ```
 
 Salida esperada:
 ```
-Nodo D escuchando en puerto 8000
+Nodo D escuchando en puerto nro_puerto
 ```
 
 ### Paso 2: Iniciar múltiples nodos C
@@ -94,7 +94,7 @@ Nodo D escuchando en puerto 8000
 En terminales separadas (también en el mismo directorio HIT6):
 
 ```bash
-python C.py 127.0.0.1 8000
+python C.py 127.0.0.1 nro_puerto 127.0.0.1
 ```
 
 Repetir en otras terminales para crear más nodos. Cada nodo C se registrará en D, recibirá la lista de vecinos anteriores y enviará saludos a cada uno.
