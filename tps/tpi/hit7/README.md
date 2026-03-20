@@ -1,63 +1,71 @@
 # Sistema de Inscripciones Distribuido
 
-## Descripción General
+## Descripción
 
-Implementación de un sistema distribuido basado en nodos C (clientes) y un nodo D (coordinador).
+Implementación de un sistema distribuido con nodos C (clientes) y un nodo D (coordinador) que administra inscripciones en ventanas de tiempo discretas.
 
-- Ventanas de tiempo fijas de 60 segundos (en código actual: 30s)
-- Los nodos C se registran en D
-- El registro es diferido: aplica a la próxima ventana
-- D mantiene:
-  - ACTIVOS: nodos en ventana actual
-  - PROXIMOS: nodos para la siguiente ventana
-- Cada intervalo:
+El sistema cumple con:
+
+- Ventanas de tiempo fijas de 60 segundos
+- Registro diferido: todo nodo se inscribe para la próxima ventana
+- Separación entre nodos activos y nodos futuros
+- Persistencia de eventos en formato JSON
+
+---
+
+## Modelo de Ventanas
+
+El sistema opera en ciclos temporales:
+
+- Un nodo que se registra en tiempo T queda activo en T+1
+- Al iniciar una nueva ventana:
   - PROXIMOS → ACTIVOS
-  - PROXIMOS se limpia
+  - PROXIMOS se vacía
+
+Ejemplo:
+
+- Registro a las 11:28:34 → activo en 11:29
+- Registros posteriores a 11:29 → pasan a 11:30
+
+Los nodos solo pueden observar los nodos activos de la ventana actual.
 
 ---
 
 ## Arquitectura
 
-### Nodo D (d.py)
+### Nodo D (Coordinador)
+
+Archivo: d.py
 
 Responsabilidades:
-- Servidor HTTP
-- Gestión de ventanas
-- Persistencia en JSON
 
-Endpoints:
-- POST /registro
-- GET /health
-- GET /activos
+- Exponer API HTTP
+- Gestionar ventanas temporales
+- Mantener estado:
+  - ACTIVOS
+  - PROXIMOS
+- Persistir eventos en archivo JSON
 
 ---
 
-### Nodo C (c.py)
+### Nodo C (Cliente)
+
+Archivo: c.py
 
 Responsabilidades:
-- Registro en D
-- Consulta de nodos activos
-- Comunicación P2P vía TCP
-- Escucha de mensajes
+
+- Registrarse en D
+- Consultar nodos activos
+- Comunicarse con otros nodos mediante TCP
+- Escuchar conexiones entrantes
 
 ---
 
-## Flujo
-
-1. Nodo C inicia
-2. Abre socket TCP en puerto dinámico
-3. Se registra en D
-4. D lo agrega a PROXIMOS
-5. Cambio de ventana:
-   - PROXIMOS → ACTIVOS
-6. C consulta /activos
-7. C se comunica con nodos activos
-
----
-
-## Endpoints
+## Endpoints HTTP
 
 ### POST /registro
+
+Registra un nodo para la próxima ventana.
 
 Request:
 {
@@ -75,6 +83,8 @@ Response:
 
 ### GET /health
 
+Devuelve estado del sistema.
+
 {
   "estado": "ok",
   "cant_conectados": N
@@ -84,6 +94,8 @@ Response:
 
 ### GET /activos
 
+Devuelve nodos activos en la ventana actual.
+
 {
   "nodos": [
     {"ip": "...", "puerto": ...}
@@ -92,11 +104,15 @@ Response:
 
 ---
 
-## Comunicación entre nodos
+## Comunicación entre Nodos C
 
-Protocolo: TCP
+- Protocolo: TCP
+- Cada nodo:
+  - Escucha conexiones entrantes
+  - Envía mensajes a otros nodos activos
 
-Mensaje:
+Formato del mensaje:
+
 {
   "from": "ip:puerto",
   "texto": "Hola vecino!"
@@ -108,62 +124,90 @@ Mensaje:
 
 Archivo: registro_ejecucion.json
 
-Eventos:
+Eventos registrados:
+
 - registro-nodo
 - cambio-ventana
 
 Formato:
+
 {
   "evento": "...",
   "timestamp": ...,
   "datos": {...}
 }
 
+Nota: el archivo se escribe en modo append sin estructura de arreglo JSON válida.
+
 ---
 
 ## Concurrencia
 
 Nodo D:
-- Hilo HTTP
-- Hilo de ventanas
+
+- Hilo HTTP (manejo de requests)
+- Hilo de manejo de ventanas
 
 Nodo C:
-- Hilo escucha TCP
-- Hilo envío mensajes
-- Hilo health
+
+- Hilo de escucha TCP
+- Hilo de envío de mensajes
+- Hilo de chequeo de estado
 
 ---
 
 ## Ejecución
 
-Nodo D:
+### Nodo D
+
 python3 d.py
 
-Nodo C:
+Por defecto el Servidor escucha en:
+localhost:8080
+
+---
+
+### Nodo C
+
 python3 c.py <ip_D> <puerto_D> <ip_local>
 
 Ejemplo:
+
 python3 c.py localhost 8080 localhost
+
+---
+
+## Flujo de Ejecución
+
+1. Nodo C inicia
+2. Abre socket TCP en puerto dinámico
+3. Se registra en D
+4. D agrega nodo a PROXIMOS
+5. Cambio de ventana:
+   - PROXIMOS → ACTIVOS
+6. C consulta nodos activos
+7. C envía mensajes a otros nodos
 
 ---
 
 ## Limitaciones
 
-- JSON no estructurado (append inválido)
-- Locks incorrectos (no compartidos)
-- No thread-safe real
-- Intervalo inconsistente (30s vs 60s)
-- HTTPServer secuencial
-- Sin manejo robusto de errores
+- No thread-safe (acceso concurrente sin sincronización)
+- Sin validación de duplicados robusta
+- Sin manejo de fallos de red
+- Sin control de desconexión de nodos
+- No se puede elegir el puerto o ip de escucha del Servidor sin cambiar el código
 
 ---
 
-## Estado
+## Estado del Sistema
 
-Funcional a nivel conceptual:
-- Registro diferido: OK
-- Consulta activos: OK
-- Comunicación entre nodos: OK
-- Persistencia: parcial
+Implementa correctamente:
 
-Problemas en sincronización y robustez.
+- Registro diferido por ventanas
+- Separación entre nodos activos y futuros
+- Consulta de nodos activos
+- Comunicación entre nodos
+- Registro de eventos
+
+Limitaciones presentes en sincronización, persistencia y robustez.

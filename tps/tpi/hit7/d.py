@@ -2,10 +2,13 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from typing import Dict, Tuple, List, Any
 import json
 import threading
-import sys
 import time
 
 
+# Memoria compartida, accedida desde el hilo manejador de ventana
+# y desde el del manejador del servidor HTTP
+# El siguiente programa por lo tanto no es thread-safe, ya que no se
+# implementa por falta de tiempo.
 ACTIVOS: List[Tuple[str, int]] = []
 PROXIMOS: List[Tuple[str, int]] = []
 
