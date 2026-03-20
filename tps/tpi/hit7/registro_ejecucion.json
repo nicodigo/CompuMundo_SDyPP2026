@@ -1,0 +1,49 @@
+{
+    "evento": "cambio-ventana",
+    "timestamp": 1774043591.4435654,
+    "datos": {
+        "activos": [],
+        "proximos": []
+    }
+}{
+    "evento": "registro-nodo",
+    "timestamp": 1774043596.8417659,
+    "datos": {
+        "ip": "localhost",
+        "puerto": 46371
+    }
+}{
+    "evento": "registro-nodo",
+    "timestamp": 1774043598.45889,
+    "datos": {
+        "ip": "localhost",
+        "puerto": 36967
+    }
+}{
+    "evento": "registro-nodo",
+    "timestamp": 1774043600.074808,
+    "datos": {
+        "ip": "localhost",
+        "puerto": 45943
+    }
+}{
+    "evento": "cambio-ventana",
+    "timestamp": 1774043621.4437287,
+    "datos": {
+        "activos": [],
+        "proximos": [
+            [
+                "localhost",
+                46371
+            ],
+            [
+                "localhost",
+                36967
+            ],
+            [
+                "localhost",
+                45943
+            ]
+        ]
+    }
+}
