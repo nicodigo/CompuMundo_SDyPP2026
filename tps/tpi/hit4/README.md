@@ -1,33 +1,38 @@
-# TP I HIT 4 README
+# Nodo de Comunicación Bidireccional (Programa C)
 
+Implementación de un nodo único que integra funciones de cliente y servidor para la comunicación simultánea entre dos instancias mediante hilos.
+
+## Descripción
+El sistema permite que dos procesos se conecten entre sí de forma recíproca. Cada instancia levanta un hilo de servidor para recibir mensajes y un hilo de cliente para enviarlos, resolviendo la necesidad de programas cliente-servidor independientes.
 
 ## Requisitos
+* Python 3.x
+* `netutils.py` (Módulo de utilidades de red)
+* `proceso.py` (Script principal)
 
-1. Python Version 3.12
-2. Dos terminales que permitan ejecutar phyton o IDE que permita múltiples terminales
+## Ejecución
+El programa requiere dos argumentos posicionales con el formato `ip:puerto`.
 
-## Instrucciones de Ejecución
+```bash
+python proceso.py <direccion_local>:<puerto_local> <direccion_remota>:<puerto_remota>
+```
 
-1. Posicionado en la carpeta raiz del proyecto ejecute los siguientes comandos
+### Ejemplo de configuración para dos instancias (Localhost):
+**Instancia 1:**
+```bash
+python proceso.py 127.0.0.1:8000 127.0.0.1:8001
+```
+**Instancia 2:**
+```bash
+python proceso.py 127.0.0.1:8001 127.0.0.1:8000
+```
 
-2. Proceso1: en la terminal ejecute "python -m TPs.TPI.Hit3.proceso <ip y puerto de escucha> <ip y puerto proceso2>
+## Estructura y Lógica
+1.  **Hilos (Threading):** El servidor se ejecuta como un demonio para permitir la escucha constante sin bloquear la entrada de teclado del cliente.
+2.  **Sockets:** Utiliza TCP (`SOCK_STREAM`) para garantizar la entrega de mensajes.
+3.  **Gestión de Errores:** Implementa lógica de reconexión manual en el cliente y manejo de excepciones en la recepción de datos.
 
-3. Proceso2: en la terminal ejecute "python -m TPs.TPI.Hit3.proceso <ip y puerto de escucha> <ip y puerto proceso1>
-
-4. Luego en le Proceso1 deberemos ingresar "r" para intentar reconectar, esto es porqu al iniciarlo el servidor del Proceso2 todavia no estaba en ejecucion, por lo tanto falla la conexion y debemos reintentarla antes de enviar un mensaje.
-
-Ejemplo en linux con python3:
-
-proceso1 > python -m TPs.TPI.Hit4.proceso localhost:18080 localhost:18081
-
-proceso2 > python -m TPs.TPI.Hit4.proceso localhost:18081 localhost:18080
-
-**La direccion y puerto puede ser cualquiera siempre y cuando sea consistente en ambos
-
-## Decisiones de diseño
-
-Mínimas requeridas por consigna, un cliente saluda a un servidor.
-Si el cliente termina su proceso el servidor sigue escuchando peticiones, por lo que podria reconectarse, y si el servidor termina el cliente en lugar de fallar le informa al usuario el cual puede intentar reconectar.
-
-# Cuestiones a mejorar
-La funcionalidad de la reconexion (paso 4) funciona, pero debe haber una mejor manera de impalementarla para que no sea responsabilidad del usuario, sino del mismo proceso.
+## Interacción
+* **Envío:** Escriba cualquier texto y presione `Enter`.
+* **Recepción:** Los mensajes remotos se muestran automáticamente indicando origen y puerto.
+* **Cierre:** La entrada de la letra `s` finaliza el proceso de cliente.
