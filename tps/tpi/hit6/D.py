@@ -11,7 +11,6 @@ tiempo_inicial = time.time()
 # Controlador para las solicitudes HTTP
 class Controlador(BaseHTTPRequestHandler):
 
-
     def do_GET(self):
         if self.path == "/health":
             respuesta = {
@@ -25,7 +24,6 @@ class Controlador(BaseHTTPRequestHandler):
             self.end_headers()
 
             self.wfile.write(json.dumps(respuesta).encode())
-
 
     def do_POST(self):
         if self.path == "/registro":
@@ -45,7 +43,6 @@ class Controlador(BaseHTTPRequestHandler):
             self.end_headers()
 
             self.wfile.write(json.dumps(respuesta).encode())
-
 
 
 def main():

@@ -15,22 +15,22 @@ MI_IP = "127.0.0.1"
 # Nodo C: se registra en D, recibe vecinos y les envía un saludo
 def servidor(d_ip, d_port, ip_local):
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.bind((ip_local, 0))   # puerto aleatorio inicial 
+    server.bind((ip_local, 0))  # puerto aleatorio inicial
     server.listen()
 
-    mi_puerto = server.getsockname()[1] # obtener el puerto asignado
+    mi_puerto = server.getsockname()[1]  # obtener el puerto asignado
 
-    print("Nodo C escuchando en", ip_local, mi_puerto) # mostrar el puerto real
+    print("Nodo C escuchando en", ip_local, mi_puerto)  # mostrar el puerto real
 
     registrar_en_D(d_ip, d_port, ip_local, mi_puerto)
 
     while True:
-        conn, addr = server.accept() # esperar conexiones de vecinos
+        conn, addr = server.accept()  # esperar conexiones de vecinos
 
         data = conn.recv(1024)
         if data:
             msg = json.loads(data.decode())
-            print("Saludo recibido:", msg) # mostrar el saludo recibido
+            print("Saludo recibido:", msg)  # mostrar el saludo recibido
 
         conn.close()
 
@@ -66,12 +66,12 @@ def conectar_vecino(vecino):
             "from": mi_ip
         }
 
-        s.send(json.dumps(saludo).encode()) # enviar saludo al vecino 
+        s.send(json.dumps(saludo).encode())  # enviar saludo al vecino
         s.close()
 
         print("Saludo enviado a", vecino)
 
-    except:
+    except Exception:
         pass
 
 
@@ -96,9 +96,8 @@ def main():
             daemon=True,
             )
 
-
     proceso_servidor.start()
-    
+
     proceso_servidor.join()
 
 
@@ -107,8 +106,3 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         sys.exit(2)
-
-
-
-
-

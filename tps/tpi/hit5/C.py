@@ -5,7 +5,6 @@ import json
 import sys
 
 
-
 def servidor(ip_local: str, puerto_local: int) -> None:
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -72,6 +71,7 @@ def cliente(ip_remoto: str, puerto_remoto: int) -> None:
             s.close()
             time.sleep(2)
 
+
 def main():
     if (len(sys.argv) != 5):
         print("Error: Formato incorrecto")
@@ -112,4 +112,3 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         sys.exit(2)
-
