@@ -1,5 +1,5 @@
 import sys
-from TPs.TPI.common.netutils import *
+from netutils import *
 import threading
 import socket
 
