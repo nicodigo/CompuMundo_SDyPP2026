@@ -58,7 +58,7 @@ def main():
         sys.exit(1)
 
     server = HTTPServer(("0.0.0.0", d_port), Controlador)
-    print("Nodo D escuchando en puerto " + d_port)
+    print("Nodo D escuchando en puerto ", d_port)
     server.serve_forever()
 
 

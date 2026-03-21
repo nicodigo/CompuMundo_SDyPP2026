@@ -1,26 +1,25 @@
-# TP I HIT 3 README
+# Sistema de Comunicación TCP (Cliente-Servidor)
 
+## Descripción
+Implementación de una arquitectura cliente-servidor basada en sockets TCP para el intercambio de mensajes de texto. El sistema gestiona la persistencia del servidor ante desconexiones del cliente y la capacidad de reconexión automática del cliente ante caídas del servidor.
+
+## Estructura del Proyecto
+* **netutils.py**: Biblioteca de utilidades para la abstracción de creación de sockets, codificación/decodificación UTF-8 y procesamiento de direcciones IP/Puerto.
+* **servidor.py**: Proceso B. Escucha conexiones entrantes, procesa saludos del cliente y mantiene el ciclo de ejecución tras la finalización de sesiones individuales.
+* **cliente.py**: Proceso A. Establece conexión con el proceso B, envía un saludo y gestiona excepciones de red mediante un bucle de reintento de conexión.
 
 ## Requisitos
+* Python 3.x instalado.
 
-1. Python Version 3.12
-2. Dos terminales que permitan ejecutar phyton o IDE que permita múltiples terminales
+## Ejecución
 
-## Instrucciones de Ejecución
+### 1. Servidor (Proceso B)
+Debe iniciarse primero para habilitar el puerto de escucha.
+```bash
+python servidor.py <direccion_ip>:<puerto>
+```
 
-1. Posicionado en la carpeta raiz del proyecto ejecute los siguientes comandos
-2. Servidor: en la terminal servidor ejecute "python -m TPs.TPI.Hit3.servidor direccion_ip_servidor:puerto_servidor"
-3. Cliente: en la terminal cliente ejecute "python -m TPs.TPI.Hit3.cliente direccion_ip_servidor:puerto_servidor"
-
-Ejemplo en linux con python3:
-
-servidor > python -m TPs.TPI.Hit3.servidor localhost:18080
-
-cliente > python -m TPs.TPI.Hit3.cliente localhost:18080
-
-**La direccion y puerto puede ser cualquiera siempre y cuando sea consistente en ambos
-
-## Decisiones de diseño
-
-Mínimas requeridas por consigna, un cliente saluda a un servidor.
-Si el cliente termina su proceso el servidor sigue escuchando peticiones, por lo que podria reconectarse, y si el servidor termina el cliente en lugar de fallar le informa al usuario el cual puede intentar reconectar.
+### 2. Cliente (Proceso A)
+```bash
+python cliente.py <direccion_ip_servidor>:<puerto_servidor>
+```

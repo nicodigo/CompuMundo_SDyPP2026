@@ -96,6 +96,15 @@ En terminales separadas (también en el mismo directorio HIT6):
 ```bash
 python C.py 127.0.0.1 nro_puerto 127.0.0.1
 ```
+En caso que arroje error ModuleNotFoundError se debe instalar el modulo 'request':
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install requests
+```
+luego correr el comando en el mismo entorno anterior
+
 
 Repetir en otras terminales para crear más nodos. Cada nodo C se registrará en D, recibirá la lista de vecinos anteriores y enviará saludos a cada uno.
 
