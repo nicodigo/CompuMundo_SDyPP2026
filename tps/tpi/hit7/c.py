@@ -96,7 +96,6 @@ def saludar_vecinos(cliente: NodoCliente, ip_local: str, puerto_local: int) -> N
 
 
 def escuchar_saludos(s_escucha: socket.socket) -> None:
-    print("aaaaatiii")
     ip_local, puerto_local = s_escucha.getsockname()
     print(f"{ip_local}")
 
