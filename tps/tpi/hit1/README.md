@@ -17,13 +17,13 @@ DEO GLORIA
 2. Ejecute la instrucción de su python instalado + el nombre del archivo mencionado en el paso anterior
 
 Ejemplo en linux con python3:
-> python3 Hit1B.py
+> python3 Hit1B.py 10500
 
 3. En la segunda terminal posicionesé en la carpeta que tenga el archivo Hit1A.py
 4. Símil al paso 2 pero con el archivo mencionado en el punto 3
 
 Ejemplo en linux con python3:
-> python3 Hit1A.py
+> python3 Hit1A.py 10500 "Hola Mundo"
 
 ## Decisiones de diseño
 
